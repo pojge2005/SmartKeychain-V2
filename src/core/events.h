@@ -1,0 +1,31 @@
+#pragma once
+
+enum class SystemEvent {
+    NONE,
+
+    BUTTON_1,
+    BUTTON_2,
+    BUTTON_3,
+    BUTTON_4,
+
+    BUTTON_1_LONG,
+    BUTTON_2_LONG,
+    BUTTON_3_LONG,
+    BUTTON_4_LONG,
+
+    TICK_100MS,
+    TICK_1S,
+
+    LOW_BATTERY,
+    CRITICAL_BATTERY,
+
+    CHARGING_STARTED,
+    CHARGING_STOPPED,
+
+    ALARM_TRIGGERED,
+
+    KEY_EXTEND,
+    KEY_RETRACT,
+
+    ERROR
+};
