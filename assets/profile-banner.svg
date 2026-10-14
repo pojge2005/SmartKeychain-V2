@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Prasanna Pojgey | Embedded Systems and IoT</title>
+  <desc id="desc">A modern dark technical banner featuring embedded systems, firmware, IoT, and robotics.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="55%" stop-color="#102a43"/>
+      <stop offset="100%" stop-color="#123c4a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#94a3b8" stroke-opacity=".12" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="320" rx="22" fill="url(#bg)"/>
+  <rect width="1200" height="320" rx="22" fill="url(#grid)"/>
+  <circle cx="1010" cy="80" r="150" fill="#38bdf8" opacity=".08"/>
+  <circle cx="1090" cy="260" r="170" fill="#2dd4bf" opacity=".08"/>
+  <g fill="none" stroke="url(#accent)" stroke-width="2" opacity=".85">
+    <path d="M780 82h88v36h50v-20h48"/>
+    <path d="M820 146h45v36h80v-30h65"/>
+    <path d="M850 224h72v-30h45v-28h70"/>
+    <circle cx="780" cy="82" r="5" fill="#38bdf8"/>
+    <circle cx="964" cy="98" r="5" fill="#2dd4bf"/>
+    <circle cx="1010" cy="152" r="5" fill="#38bdf8"/>
+    <circle cx="1032" cy="166" r="5" fill="#2dd4bf"/>
+    <circle cx="850" cy="224" r="5" fill="#38bdf8"/>
+  </g>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="72" y="104" fill="#7dd3fc" font-size="18" font-weight="700" letter-spacing="4">ENGINEERING PORTFOLIO</text>
+    <text x="68" y="166" fill="#f8fafc" font-size="48" font-weight="700">Prasanna Pojgey</text>
+    <rect x="72" y="190" width="84" height="4" rx="2" fill="url(#accent)"/>
+    <text x="72" y="230" fill="#dbeafe" font-size="22">Embedded Systems · IoT · Firmware · Robotics</text>
+    <text x="72" y="270" fill="#94a3b8" font-size="16">Building practical systems with microcontrollers, sensors, and software.</text>
+  </g>
+</svg>
