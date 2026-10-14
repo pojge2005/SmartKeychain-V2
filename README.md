@@ -1,135 +1,93 @@
 # SmartKeychain V2
 
-**ESP32-C3 Smart Keychain — Embedded Firmware Project**
+**ESP32-C3 | Embedded Firmware | OLED UI | PlatformIO**
 
-SmartKeychain V2 is a compact embedded device designed around the ESP32-C3 microcontroller. It combines an OLED user interface, physical button controls, device settings, time utilities, games, sound alerts, and power-management features in a portable keychain form factor.
+SmartKeychain V2 is a portable embedded-device project built around an ESP32-C3 board. It explores a compact OLED interface, physical-button navigation, time utilities, small games, and device settings.
 
-> **Development status:** Feature-complete status must be confirmed against the final firmware build and hardware test results before release.
+> **Status:** Prototype documentation. Confirm the current firmware source and hardware revision before treating any optional feature as implemented or tested.
 
-## Features
+## Core Hardware
 
-- **OLED interface:** Screen-based navigation and device information.
-- **Button controls:** Physical input for menus and applications.
-- **Digital clock:** Time display and clock-format settings.
-- **Time utilities:** Alarm, timer, and stopwatch applications.
-- **Games:** Snake, Reaction, Dodge, and Memory.
-- **Device settings:** Configurable user-interface and system preferences.
-- **Battery monitoring:** Battery-status display when voltage measurement is configured and calibrated.
-- **Sound feedback:** Buzzer alerts and user-interface feedback when supported by the hardware.
-- **Connectivity:** Optional Wi-Fi and BLE functionality, subject to firmware configuration.
-- **Diagnostics:** Device information and troubleshooting support.
-- **Power management:** Display timeout and power-saving behavior where implemented.
-- **Persistent settings:** Preferences storage using the ESP32 Arduino framework.
+| Component | Role | Notes |
+| --- | --- | --- |
+| ESP32-C3 development board | Main controller | Repository target: esp32-c3-devkitm-1 |
+| SSD1306-compatible I2C OLED | Display | A previous scan detected address 0x3C |
+| Four push buttons | Previous, Next, Select, Back | Confirm GPIO assignments in the firmware |
+| RGB LED | Status feedback | Use suitable current-limiting resistors |
+| Buzzer | Audio feedback | Optional, verify driver requirements |
+| 3.7 V Li-ion cell | Portable power | Confirm cell rating and protection |
+| Charging module | Battery charging | Verify charging and protection specifications |
 
-## Hardware
-
-| Component | Purpose |
-| --- | --- |
-| ESP32-C3 Super Mini | Main microcontroller |
-| 0.96-inch I2C OLED | Display and user interface |
-| Four physical buttons | Navigation and user input |
-| RGB LED | Visual status indication |
-| Buzzer | Audio feedback |
-| 3.7 V Li-ion battery | Portable power |
-| Charging and protection module | Battery charging and protection |
-
-Hardware availability and wiring depend on the assembled revision.
-
-## Software and Tools
+## Software Stack
 
 - PlatformIO
-- Visual Studio Code
 - Arduino framework for ESP32
 - Adafruit GFX Library
 - Adafruit SSD1306 Library
-- Arduino `Wire` library
-- ESP32 `Preferences` API
+- Arduino Wire library
+- ESP32 Preferences API, where used by the firmware
 
-## Firmware Architecture
+## Build and Upload
 
-The firmware is organized into functional modules to simplify development and testing.
+Install Visual Studio Code and the PlatformIO IDE extension. Connect the target board over USB.
 
-- `config` — Hardware configuration and shared settings
-- `hardware` — Peripheral drivers and hardware interfaces
-- `core` — System logic and event handling
-- `ui` — Display rendering and navigation
-- `apps` — Clock, timer, stopwatch, and games
-- `storage` — Persistent settings
-- `power` — Power-management functionality
+Build:
 
-The exact module names and responsibilities should match the current source tree.
+    pio run
 
-## Build Instructions
+Upload:
 
-### Requirements
+    pio run --target upload
 
-Install Visual Studio Code and the PlatformIO IDE extension. Connect a compatible ESP32-C3 development board over USB.
+Serial monitor:
 
-### Build
+    pio device monitor -b 115200
 
-``` bash
-pio run
-```
+Select the correct serial port if more than one device is connected.
 
-### Upload firmware
+## Hardware Setup Checklist
 
-``` bash
-pio run --target upload
-```
+Before powering the assembled device:
 
-### Open the serial monitor
+1. Confirm the board model and GPIO assignments.
+2. Verify OLED SDA/SCL wiring and I2C address.
+3. Check button polarity and input configuration.
+4. Verify RGB LED resistors and buzzer driver circuit.
+5. Check battery polarity, charging module, and protection circuit.
+6. Measure supply voltage with a multimeter.
 
-``` bash
-pio device monitor -b 115200
-```
+Do not copy pin assignments from a different ESP32 family board without checking its pinout.
 
-Select the appropriate serial port if multiple devices are connected.
+## Architecture and Hardware Notes
 
-## Hardware Configuration
+- [Firmware architecture](docs/architecture.md)
+- [GPIO verification map](docs/gpio-map.md)
+- [Power and battery notes](docs/power.md)
 
-Before uploading, verify the following in the firmware configuration:
+## Feature Verification
 
-- OLED I2C address and SDA/SCL pins
-- Button GPIO assignments and active levels
-- RGB LED pin assignments
-- Buzzer output configuration
-- Battery ADC input and voltage-divider calibration
-- Charging-module behavior
-- Sleep and wake-up configuration
+Use the checklist below to record actual hardware and firmware test results.
 
-Do not assume GPIO assignments are interchangeable between ESP32-C3 board revisions.
+- [ ] Firmware builds successfully from the current commit.
+- [ ] OLED starts and all implemented screens render correctly.
+- [ ] Four buttons respond reliably and are debounced.
+- [ ] Implemented clock and time utilities behave correctly.
+- [ ] Implemented games run without blocking other UI behavior.
+- [ ] Settings persist after reboot, if persistence is implemented.
+- [ ] Battery measurement is calibrated, if supported by the hardware.
+- [ ] Wireless features are tested, if enabled.
+- [ ] Sleep, wake-up, and extended runtime are tested.
 
-## Testing
+Do not mark a check as complete until it has been verified on the target hardware.
 
-The final release should pass the following checks:
+## Known Limitations
 
-- [x] Firmware compiles successfully.
-- [x] Firmware fits within the configured flash partition.
-- [x] OLED initializes and renders all screens correctly.
-- [x] All four buttons work with reliable debouncing.
-- [x] Clock, alarm, timer, and stopwatch behave correctly.
-- [x] All four games operate correctly.
-- [x] Settings persist after reboot.
-- [ ] Battery readings are calibrated against a multimeter.
-- [ ] Buzzer and RGB LED outputs operate safely.
-- [ ] Sleep and wake-up behavior is verified.
-- [x] Wi-Fi and BLE features work if enabled.
-- [ ] Extended runtime and recovery tests pass.
+A software clock based only on uptime will not keep accurate time through complete power loss without an RTC or external time synchronization. Battery percentage also requires a suitable measurement circuit and calibration.
 
-## Safety Notes
+## Repository
 
-Use a compatible Li-ion charging and protection circuit. Verify battery voltage limits and all wiring before powering the device. Never drive a motor or other high-current load directly from an ESP32 GPIO.
-
-## Limitations
-
-Without an RTC or external time synchronization, the software clock cannot retain accurate time through complete power loss.
-
-Battery percentage requires calibration. Wireless features, power management, and peripheral behavior depend on the final hardware and firmware configuration.
-
-## Project Repository
-
-[SmartKeychain V2 on GitHub](<https://github.com/pojge2005/SmartKeychain-V2>)
+[Source code](https://github.com/pojge2005/SmartKeychain-V2)
 
 ## License
 
-Specify a license before distributing the project for reuse.# SmartKeychain-V2
+Add a license before distributing the source for reuse.
